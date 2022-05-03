@@ -1,0 +1,58 @@
+﻿@model Telcel.R9.Estructura.Negocio.Empleado
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h2>Empleado</h2>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un empleado para editarlo o + para agregar un empleado...</h5>
+            <hr />
+        </div>
+    </div>
+
+    @*<div class="row">*@
+    <div style="float:right;">
+        @Html.ActionLink("+", "Form", "Departamento", htmlAttributes: new { @class = "btn btn-success" })
+
+    </div>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                <td style="display: none">EmpleadoID</td>
+                <td class="text-center" style="font-weight:bold;">Nombre</td>
+                <td style="display: none">PuestoID</td>
+                <td class="text-center" style="font-weight:bold;">Puesto</td>
+                <td style="display: none">DepartamentoID</td>
+                <td class="text-center" style="font-weight:bold;">Departamento</td>
+
+                <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Telcel.R9.Estructura.Negocio.Empleado empleado in Model.Empleados)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Empleado", new { EmpleadoID = empleado.EmpleadoID })"></a></td>
+                    <td style="display: none">@empleado.EmpleadoID</td>
+                    <td>@empleado.Nombre</td>
+                    <td style="display: none">@empleado.Puesto.PuestoID</td>
+                    <td>@empleado.Puesto.Descripcion</td>
+                    <td style="display: none">@empleado.Departamento.DepartamentoID</td>
+                    <td>@empleado.Departamento.Descripcion</td>
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Empleado", new { EmpleadoID = empleado.EmpleadoID })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
